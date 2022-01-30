@@ -3,14 +3,14 @@ Create a confessions account on Instagram and post confessions received from goo
 
 
 ## Previous Default approach for Instagram confession page
-1. Receive anonymous confessions via google form.
-2. copy and paste them to a photo editing software and make a instagram postable photo.
-3. save that photo and post it to instagram account with a proper counting.
+1. Receive anonymous confessions via a google form.
+2. copy and paste them to a photo editing software and make an Instagram postable photo.
+3. save that photo and post it to your Instagram account with proper counting.
 
-> This is very lengthy approach. Admin has to do a lot of work for posting each confession.
+> This is a very lengthy approach. Admin has to do a lot of work for posting each confession.
 
 ## An improvised Solution:
-Here I purpose a program that reads the confessions from google sheet (responses of google forms) and writes them to a specific photo template and posts these photos to instagram with a proper automatic counting. If length of the confession if larger than a single template, it creates multiple templates for that confessions and posts an album post with all photos.
+Here I purpose a program that reads the confessions from a google sheet (responses of google forms) and writes them to a specific photo template and posts these photos to Instagram with proper automatic counting. If the length of the confession is larger than a single template, it creates multiple templates for that confessions and posts an album post with all photos.
 
 ## Implementation:
 I used the following python libraries for the implementation:
@@ -26,11 +26,11 @@ You can deploy it locally:
 
 2. clone this repository using `https://github.com/manoj2601/Auto-Instagram-Confessions.git` or download it in zip format and extract it.
 3. edit config.py with your login credentials and google sheet link (where the google form responses are being stored).
-4. Run `python main.py` whenever you want to post confessions on your instagram handle.
+4. Run `python main.py` whenever you want to post confessions on your Instagram handle.
   
-  Now if you check your instagram handle, all newly confessions are posted like the following: 
+  Now if you check your Instagram handle, all newly confessions are posted like the following: 
 
-## Final instagram posts:
+## Final Instagram posts:
 **Single Post short confessions:**  
 
 <img src="./posts/1.jpg" alt="photo post" width="300"/>
@@ -41,7 +41,7 @@ You can deploy it locally:
 
 ## Contributing:
 All contributions and suggestions are welcome!
-* Raise an issue for suggesions.
+* Raise an issue for suggestions.
 * To contribute :
 	1. Fork it.
 	2. Create your feature branch: `git checkout -b my-new-feature`.
