@@ -19,8 +19,8 @@ if(posted == len(confessions)):
 	exit(1)
 
 #instagram login
-# bot = Client()
-# bot.login(username, password)
+bot = Client()
+bot.login(username, password)
 
 # font, size and colour
 fontSize = 30
@@ -67,10 +67,10 @@ for i in range(posted+1, len(confessions)+1):
 			currHeight += height
 		filename="posts/"+str(i)+".jpg" 
 		img.save(filename)
-		# bot.photo_upload(path=filename, 
-		# 	caption="Confession: #"+str(i)
-		# 	# ,usertags=[Usertag(user=bot.user_info_by_username(username), x=1, y=1)]
-		# 	)
+		bot.photo_upload(path=filename, 
+			caption="Confession: #"+str(i)
+			# ,usertags=[Usertag(user=bot.user_info_by_username(username), x=1, y=1)]
+			)
 
 
 	#multiple_pages album post
@@ -116,9 +116,9 @@ for i in range(posted+1, len(confessions)+1):
 		img.save(filename)
 		
 		#upload album post
-		# bot.album_upload(paths=photos, 
-		# 	caption="Confession: #"+str(i)
-		# 	# ,usertags=[Usertag(user=bot.user_info_by_username(username), x=1, y=1)]
-		# 	)
+		bot.album_upload(paths=photos, 
+			caption="Confession: #"+str(i)
+			# ,usertags=[Usertag(user=bot.user_info_by_username(username), x=1, y=1)]
+			)
 
 open('total.txt', 'w').write(str(len(confessions)))
