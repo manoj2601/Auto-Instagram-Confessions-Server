@@ -15,24 +15,19 @@ import os
 import base64
 from config import username, password, sheet_url
 
+# to pass the string in database
 def encodeString(str):
-	# return str
 	ret = ""
 	for i in range(0, len(str)):
 		if(str[i] == '\''):
 			ret += '\''
 		ret += str[i]
 	return ret
-	# a = str.encode("unicode_escape")
-	# b = base64.b64encode(a)
-	# return b.decode("unicode_escape")
 
 def decodeString(str):
 	return str
-	# a = str.encode("utf-8")
-	# b = base64.b64decode(a)
-	# return b.decode("utf-8")
 
+# postgresql database connect
 connection = psycopg2.connect(
 	host = "localhost",
 	database = "autopost",
@@ -48,6 +43,7 @@ cursor = connection.cursor()
 app = Flask(__name__)
 
 #instagram login
+# create an empty instaCache.json file
 bot = Client()
 instaCache = open('instaCache.json', 'r')
 if(instaCache.read() == ''):
@@ -67,6 +63,7 @@ headingColor = (0, 0, 255)
 
 instaHandleCorner = (250, 1030)
 
+#create post and post it on instagram
 def createPost(id):
 	print(id)
 	cursor.execute(f"SELECT entry FROM entries WHERE id = {id};")
@@ -208,7 +205,6 @@ def insertQueue():
 		cursor.execute(f"INSERT INTO entries (entry) VALUES ('{st}');")
 	# cursor.commit()
 
-#CHECKED AND WORKING FINE
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 	if(request.method == request.method):
@@ -225,6 +221,7 @@ def login():
 		return "0"
 	return "0"
 
+# receive a new entry from database
 @app.route('/getEntry', methods=['GET', 'POST'])
 def getEntry():
 	if(request.method=='GET'):
@@ -275,7 +272,6 @@ def getEntry():
 				 "id" : str(entries[0][0]),
 				 "text" : decodeString(entries[0][1]),
 				 })
-		# return "Manoj"
 	elif(request.method == 'POST'):
 		print("post request in getEntry received")
 		id = request.args.get('id')
@@ -298,6 +294,7 @@ def getEntry():
 	else:
 		return "Invalid request type in getEntry"
 
+# receive entries which were skipped earlier
 @app.route('/getEntrySkipped', methods=['GET', 'POST'])
 def getEntrySkipped():
 	if(request.method=='GET'):
