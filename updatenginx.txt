@@ -1,0 +1,3 @@
+path : /etc/nginx/sites-enabled
+
+sudo nginx -s reload

@@ -373,15 +373,18 @@ def verifySessionId():
 	print(sessionsList)
 	sessionsList = [a[0] for a in sessionsList]
 	if(sessionId in sessionsList):
+		cursor.execute(f"UPDATE sessions SET login_time = current_timestamp WHERE session_id = '{sessionId}';")
 		return "1"
 	else:
 		return "0"
 
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
-	
 	sid = request.args.get('session_id')
-	cursor.execute("DELETE FROM sessions where session_id = '{sid}';")
+	print("logging out ")
+	print(sid)
+	cursor.execute(f"DELETE FROM sessions where session_id = '{sid}';")
+	# connection.commit()
 	return "1"
 
 if __name__ == "__main__":
