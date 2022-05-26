@@ -13,6 +13,9 @@ import textwrap
 import json
 import os
 import base64
+import random
+import string
+from datetime import datetime
 from config import username, password, sheet_url
 
 # to pass the string in database
@@ -63,6 +66,14 @@ headingColor = (0, 0, 255)
 
 instaHandleCorner = (250, 1030)
 
+def verifySid(sessionId):
+	cursor.execute(f"SELECT session_id from sessions;")
+	sessionsList = cursor.fetchall()
+	if(sessionId in sessionsList):
+		return True
+	else:
+		return False
+
 #create post and post it on instagram
 def createPost(id):
 	print(id)
@@ -109,9 +120,10 @@ def createPost(id):
 			currHeight += height
 		filename="posts/"+id+".jpg" 
 		img.save(filename)
+		print(text)
 		bot.photo_upload(path=filename,
 			caption='#'+str(id)+"\n"+text
-			,usertags=[Usertag(user=bot.user_info_by_username(username), x=1, y=1)]
+			# ,usertags=[Usertag(user=bot.user_info_by_username(username), x=1, y=1)]
 			)
 
 
@@ -205,6 +217,17 @@ def insertQueue():
 		cursor.execute(f"INSERT INTO entries (entry) VALUES ('{st}');")
 	# cursor.commit()
 
+def createSessionId():
+	cursor.execute(f"SELECT session_id from sessions")
+	sessionsList = cursor.fetchall()
+	sessionsList = [a[0] for a in sessionsList]
+	while (True):
+		sessionId = ''.join(random.choices(string.ascii_uppercase +
+							string.digits, k = 26))
+		if sessionId in sessionsList:
+			continue
+		return sessionId
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 	if(request.method == request.method):
@@ -217,7 +240,9 @@ def login():
 			return "0"
 		else:
 			if(passList[0][0] == request.args.get('password')):
-				return "1"
+				sessionId = createSessionId()
+				cursor.execute(f"INSERT INTO sessions (session_id, username, login_time) VALUES ('{sessionId}', '{username}', current_timestamp);")
+				return sessionId
 		return "0"
 	return "0"
 
@@ -339,6 +364,25 @@ def getEntrySkipped():
 @app.route('/', methods=['GET', 'POST'])
 def index():
 	return "Hello World"
+
+@app.route('/verify', methods=['GET', 'POST'])
+def verifySessionId():
+	cursor.execute(f"SELECT session_id from sessions;")
+	sessionsList = cursor.fetchall()
+	sessionId = request.args.get('session_id')
+	print(sessionsList)
+	sessionsList = [a[0] for a in sessionsList]
+	if(sessionId in sessionsList):
+		return "1"
+	else:
+		return "0"
+
+@app.route('/logout', methods=['GET', 'POST'])
+def logout():
+	
+	sid = request.args.get('session_id')
+	cursor.execute("DELETE FROM sessions where session_id = '{sid}';")
+	return "1"
 
 if __name__ == "__main__":
 	app.run(port=5000, debug=True)
