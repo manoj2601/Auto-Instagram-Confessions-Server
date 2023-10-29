@@ -1,13 +1,13 @@
 # Auto-Instagram-Confessions
-Create a confessions account on Instagram and post confessions received from google forms anonymously and automatically.
+This a simple backend service which can be used to post confessions or entries among a group. You need to create a confessions account on Instagram and it will post confessions received from google forms anonymously and automatically.
 
 
-## Previous Default approach for Instagram confession page
+## Standard Default approach for Instagram confession page
 1. Receive anonymous confessions via a google form.
-2. copy and paste them to a photo editing software and make an Instagram postable photo.
+2. copy and paste them to a photo editing software and make an Instagrammable post photo.
 3. save that photo and post it to your Instagram account with proper counting.
 
-> This is a very lengthy approach. Admin has to do a lot of work for posting each confession.
+> This is a very lengthy approach. The Admin has to do a lot of work for posting each confession.
 
 ## An improvised Solution:
 Here I purpose a program that reads the confessions from a google sheet (responses of google forms) and writes them to a specific photo template and posts these photos to Instagram with proper automatic counting. If the length of the confession is larger than a single template, it creates multiple templates for that confessions and posts an album post with all photos.
