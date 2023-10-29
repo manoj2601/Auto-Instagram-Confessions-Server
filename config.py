@@ -1,6 +1,6 @@
-#instagram account username and password
-username = 'insta_username'
-password = 'XXXXXXX'
+# instagram account details (username and password)
+username = 'instagram_username'
+password = 'instagram_handle_password'
 
-#paste your google sheets url where the responses are being saved
+# paste your google sheets url where the responses are being saved
 sheet_url = "https://docs.google.com/spreadsheets/XXXXXXX"
