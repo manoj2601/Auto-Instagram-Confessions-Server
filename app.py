@@ -1,3 +1,4 @@
+# Imports
 from flask import Flask, g, render_template,request,session,redirect,flash, url_for, abort, jsonify
 import psycopg2
 import os
@@ -18,7 +19,7 @@ import string
 from datetime import datetime
 from config import username, password, sheet_url
 
-# to pass the string in database
+# encode to pass the string in database
 def encodeString(str):
 	ret = ""
 	for i in range(0, len(str)):
@@ -27,6 +28,7 @@ def encodeString(str):
 		ret += str[i]
 	return ret
 
+# decode String to readable format
 def decodeString(str):
 	return str
 
@@ -43,10 +45,12 @@ connection.autocommit = True
 
 cursor = connection.cursor()
 
+# Initiate app
 app = Flask(__name__)
 
 #instagram login
-# create an empty instaCache.json file
+# If instaCache.json is not already present, create an empty instaCache.json file and dump the configs
+# Otherwise, load the config settings from instaCache.json file
 bot = Client()
 instaCache = open('instaCache.json', 'r')
 if(instaCache.read() == ''):
@@ -63,11 +67,11 @@ myFont = ImageFont.truetype('OpenSans-SemiBold.ttf', fontSize, encoding='unic')
 # myFont = ImageFont.truetype('OpenSansEmoji.ttf', fontSize, encoding='unic')
 bodyColor = (255, 0, 0)
 headingColor = (0, 0, 255)
-
 instaHandleCorner = (250, 1030)
 
+# Verifying the session id
 def verifySid(sessionId):
-	cursor.execute(f"SELECT session_id from sessions;")
+	cursor.execute("""SELECT session_id from sessions;""")
 	sessionsList = cursor.fetchall()
 	if(sessionId in sessionsList):
 		return True
