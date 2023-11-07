@@ -364,11 +364,12 @@ def getEntrySkipped():
 		else:
 			return "Something went wrong in getEntrySkipped POST"
 
-
+# Sample api for testing
 @app.route('/', methods=['GET', 'POST'])
 def index():
 	return "Hello World"
 
+# API to verify the session id everytime the user opens the app
 @app.route('/verify', methods=['GET', 'POST'])
 def verifySessionId():
 	cursor.execute(f"SELECT session_id from sessions;")
@@ -382,6 +383,7 @@ def verifySessionId():
 	else:
 		return "0"
 
+# API for logging out the account of auto instagram confessions app session
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
 	sid = request.args.get('session_id')
@@ -391,5 +393,6 @@ def logout():
 	# connection.commit()
 	return "1"
 
+# This initiates the server
 if __name__ == "__main__":
 	app.run(port=5000, debug=True)
